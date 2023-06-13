@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private JsonArrayRequest jsonArrayRequest;
     private ArrayList<String> origenDatos = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
-    private String url = "http://192.168.1.83:3000/";
+    private String url = "http://10.10.62.20:3300/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
         colaPeticiones = Volley.newRequestQueue(this);
         listProducts();
 
-
-
-
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                         etMarca.setText(response.getString("marca"));
                                         etPrecioCompra.setText(String.valueOf(response.getInt("preciocompra")));
                                         etPrecioVenta.setText(String.valueOf(response.getInt("precioventa")));
-                                        etExistencia.setText(String.valueOf(response.getInt("existencias")));
+                                        etExistencia.setText(String.valueOf(response.getInt("existencia")));
                                     } catch (JSONException e) {
                                         Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
@@ -126,10 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 colaPeticiones.add(peticion);
             }
         });
-
-
-
-
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,18 +252,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (etCodigoBaras.getText().toString().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Ingrese el código de barras", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No se encontro el codigo de barras", Toast.LENGTH_SHORT).show();
                 } else {
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                             Request.Method.DELETE,
@@ -282,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
                                     try {
                                         if (response.getString("status").equals("Producto eliminado")) {
                                             Toast.makeText(MainActivity.this, "Producto eliminado con exito!", Toast.LENGTH_SHORT).show();
-                                        } else if (response.getString("status").equals("Not Found")) {
+                                        } else if (response.getString("status").equals("Codigo no encontrado")) {
                                             Toast.makeText(MainActivity.this, "Producto no encontrado", Toast.LENGTH_SHORT).show();
                                         }
 
@@ -313,13 +299,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
 
 
 
